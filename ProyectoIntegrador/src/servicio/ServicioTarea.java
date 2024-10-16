@@ -27,9 +27,9 @@ public class ServicioTarea {
         tarea.setDescripcion(descripcion); // Y la reemplazamos por el método set.
         
         // Luego la fecha
-        System.out.print("Introduce la fecha de vencimiento (formato Año-Mes-Día): ");
+        System.out.print("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
         String fechaString = input.nextLine(); // Acá pedimos la fecha como String para poder transformarla en tipo Date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Esto significa que se debe ingresar dia, mes y año con las barras (16/10/2024)
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); // Esto significa que se debe ingresar dia, mes y año con las barras (2024/11/10)
         Date fechaVencimiento = dateFormat.parse(fechaString); //Pasamos la fecha string a la variable en tipo date
         tarea.setFechaVencimiento(fechaVencimiento); // Y la reemplazamos con el método set
 
@@ -56,7 +56,7 @@ public class ServicioTarea {
         tarea.setEsActiva(true);  // Marcar como activa la tarea.
 
         // Mostramos la tarea como fue ingresada
-        System.out.println("Tarea creada: " + tarea);   // Acá deberia pegarse el método mostrarTarea()
+        System.out.println("Tarea creada!.");   // Acá deberia pegarse el método mostrarTarea()
         // AGREGAR VALIDACIONES PARA QUE NO SE PUEDAN INGRESAR DATOS RANDOM.
     }
     
