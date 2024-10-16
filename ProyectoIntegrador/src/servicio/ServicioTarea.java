@@ -60,9 +60,45 @@ public class ServicioTarea {
         // AGREGAR VALIDACIONES PARA QUE NO SE PUEDAN INGRESAR DATOS RANDOM.
     }
     
+    // Metodo para modificar la tarea 
     public void modificarTarea(){
-        // Implementar lógica para modificar una tarea
+        Scanner scanner = new Scanner(System.in);
+        boolean continuar = true;
+        // Esto le mostrara al usuario que campo desea modificar
+        while (continuar){
+            System.out.println("¿Que desea modificar?");
+            System.out.println("1. Nombre");
+            System.out.println("2. Descripcion");
+            System.out.println("3. Fecha de vencimiento");
+            System.out.println("4. Prioridad");
+            System.out.println("5. Salir");
+            
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (opcion){
+                case 1:
+                    System.out.println("Ingrese el nuevo nombre: "); // Agregaremos el nuevo nombre
+                    String nuevoNombre = scanner.nextLine();
+                    tarea.setNombre(nuevoNombre);
+                    System.out.println("El nuevo nombre es "+nuevoNombre);// Se mostrara el nuevo nombre
+                    break;
+                case 2:
+                   //Agregar descripcion
+                case 3:
+                    //Agregar fecha de vencimiento
+                case 4:
+                    //Agregar prioridad
+                case 5:
+                    continuar = false;// Se dejara de ejecutar 
+                    System.out.println("Saliendo del programa.");
+                    break;
+                default:
+                    System.out.println("Opcion incorrecta. Por favor, vuelva a intentarlo");
+            }
+        }
     }
+  
     
     public void mostrarTarea(){
         // Implementar lógica para mostrar una tarea
