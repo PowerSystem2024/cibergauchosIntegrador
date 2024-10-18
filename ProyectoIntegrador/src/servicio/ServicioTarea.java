@@ -84,11 +84,32 @@ public class ServicioTarea {
                     System.out.println("El nuevo nombre es "+nuevoNombre);// Se mostrara el nuevo nombre
                     break;
                 case 2:
-                   //Agregar descripcion
+                    System.out.print("Ingrese la nueva descripción: ");
+                    String nuevaDescripcion = scanner.nextLine();
+                    tarea.setDescripcion(nuevaDescripcion);
+                    System.out.println("La nueva descripcion es "+ nuevaDescripcion);
+                    break;
                 case 3:
-                    //Agregar fecha de vencimiento
+                    System.out.print("Ingrese la nueva fecha de vencimiento (Formato: YYYY-MM-DD): ");
+                    String nuevaFecha = scanner.nextLine();
+                    tarea.setFechaVencimiento(nuevaFecha);
+                    System.out.println("La nueva fecha de vencimiento es "+nuevaFecha);
+                    break;
                 case 4:
-                    //Agregar prioridad
+                    boolean prioridadValida = false;
+                    while (!prioridadValida){
+                        System.out.println("Elija la nueva prioridad (baja, media, alta): ");
+                        String nuevaPrioridad = scanner.nextLine().toLowerCase();
+                        
+                        if (nuevaPrioridad.equals("baja") || nuevaPrioridad.equals("media") || nuevaPrioridad.equals("alta")) {
+                            tarea.setPrioridad(nuevaPrioridad);
+                            System.out.println("La nueva priodad es "+nuevaPrioridad);
+                            prioridadValida = true;
+                        } else {
+                            System.out.println("Opcion incorrecta ,intente de nuevo");
+                        }
+                    }
+                    break;
                 case 5:
                     continuar = false;// Se dejara de ejecutar 
                     System.out.println("Saliendo del programa.");
