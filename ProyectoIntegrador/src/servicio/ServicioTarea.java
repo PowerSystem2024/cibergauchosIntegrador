@@ -61,7 +61,7 @@ public class ServicioTarea {
     }
     
     // Metodo para modificar la tarea 
-    public void modificarTarea(){
+    public void modificarTarea() throws ParseException{
         Scanner scanner = new Scanner(System.in);
         boolean continuar = true;
         // Esto le mostrara al usuario que campo desea modificar
@@ -91,8 +91,10 @@ public class ServicioTarea {
                     break;
                 case 3:
                     System.out.print("Ingrese la nueva fecha de vencimiento (Formato: YYYY-MM-DD): ");
-                    String nuevaFecha = scanner.nextLine();
-                    tarea.setFechaVencimiento(nuevaFecha);
+                    String nuevaFechaStr = scanner.nextLine();
+                    SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-DD"); //Define el formato
+                    Date nuevaFecha = formato.parse(nuevaFechaStr); //Covierte el string a date
+                    tarea.setFechaVencimiento(nuevaFecha); //Convierte date a string y lo asigna
                     System.out.println("La nueva fecha de vencimiento es "+nuevaFecha);
                     break;
                 case 4:

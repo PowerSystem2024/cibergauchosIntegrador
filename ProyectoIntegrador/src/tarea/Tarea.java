@@ -79,6 +79,10 @@ public class Tarea {
         this.esActiva = esActiva;
     }
 
+    public void setFechaVencimiento(String nuevaFecha) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     
 
