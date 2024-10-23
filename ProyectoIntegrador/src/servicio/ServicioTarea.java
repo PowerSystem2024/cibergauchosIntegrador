@@ -125,9 +125,25 @@ public class ServicioTarea {
     
     public void mostrarTarea(){
         // Implementar lógica para mostrar una tarea
+        
+        String separador = "+-------------------+";
+        System.out.println(separador);
+        System.out.println("-->Nombre = " + tarea.getNombre());
+        System.out.println("-->Descripcion = " + tarea.getDescripcion());
+        System.out.println("-->Prioridad = " + tarea.getPrioridad());
+        System.out.println(separador);
+        
+        
     }
     
     public  void eliminarTarea(){
         // Implementar lógica para eliminar una tarea
+        
+        tarea.setDescripcion(null);
+        tarea.setEsActiva(false);
+        tarea.setFechaCreacion(null);
+        tarea.setNombre(null);
+        tarea.setPrioridad(null);
+        System.out.println("La tarea se elimino correctamente!.");
     }
 }
