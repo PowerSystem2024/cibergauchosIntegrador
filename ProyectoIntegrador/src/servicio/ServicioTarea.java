@@ -130,7 +130,7 @@ public class ServicioTarea {
         System.out.println(separador);
         System.out.println("-->Nombre = " + tarea.getNombre());
         System.out.println("-->Descripcion = " + tarea.getDescripcion());
-        System.out.println("-->Prioridad = " + tarea.getPrioridad());
+        System.out.println("2-->Prioridad = " + tarea.getPrioridad());
         System.out.println(separador);
         
         
