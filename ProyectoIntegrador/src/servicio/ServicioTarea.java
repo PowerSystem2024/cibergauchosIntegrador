@@ -124,7 +124,68 @@ public class ServicioTarea {
   
     
     public void mostrarTarea(){
-        // Implementar lógica para mostrar una tarea
+                String mensaje;
+        String activa;
+
+        if (tarea.isEsActiva() == true) {
+            activa = "Activa";
+        } else {
+            activa = "Descativada";
+        }
+
+        if (tarea.getNombre() == null) {
+            System.out.println("No hay datos para mostrar");
+            return;
+        }
+        Scanner input = new Scanner(System.in);
+        boolean ejecucion = true;
+        System.out.print("Desea ver el detalle de la tarea en formato parrafo o tabla? \n");
+
+        while (ejecucion) {
+            System.out.println("1. Formato Tabla");
+            System.out.println("2. Formato texto");
+            System.out.println("3. Salir");
+            System.out.print("Elige una opción: ");
+            int opcion = input.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    String separador = "+-------------------+";
+                    System.out.println(separador);
+                    System.out.println("-->Nombre = " + tarea.getNombre());
+                    System.out.println("-->Descripcion = " + tarea.getDescripcion());
+                    //System.out.println("-->Fecha de Creacion " + tarea.formatearfecha(0));
+                    System.out.println("-->Fecha de Creacion = " + tarea.formatearfecha(tarea.getFechaCreacion()));
+                    //System.out.println("-->Fecha de vencimiento " + tarea.formatearfecha(1));
+                    System.out.println("-->Fecha de Vencimiento = " + tarea.formatearfecha(tarea.getFechaVencimiento()));
+                    System.out.println("-->Prioridad = " + tarea.getPrioridad());
+                    System.out.println("-->Estado= " + activa);
+                    System.out.println(separador);
+                    ejecucion = false;
+                    break;
+                case 2:
+                    mensaje = "La tarea \"" + tarea.getNombre() + "\""
+                            + " tiene en su descripcion \"" + tarea.getDescripcion() + "\".\n"
+                            //+ "Fue creada en la fecha \"" + tarea.formatearfecha(0) + "\""
+                            + "Fue creada en la fecha \"" + tarea.formatearfecha(tarea.getFechaCreacion()) + "\""
+                            + ", cuenta con prioridad \"" + tarea.getPrioridad() + "\""
+                            + " y se encuentra \"" + activa + "\""
+                            //+ " con  fecha de vencimiento \"" + tarea.formatearfecha(1) + "\"";
+                            + " con  fecha de vencimiento \"" + tarea.formatearfecha(tarea.getFechaVencimiento()) + "\"";
+
+                    System.out.println("Descripcion tarea: \n" + mensaje);
+                    ejecucion = false;
+                    break;
+                case 3:
+                    ejecucion = false;
+                    System.out.println("Saliendo de mostrar tarea");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida. Intenta de nuevo.");
+
+            }
+        }
     }
     
     public  void eliminarTarea(){
