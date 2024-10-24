@@ -1,6 +1,7 @@
 
 package tarea;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -84,6 +85,12 @@ public class Tarea {
     }
 
 
-    
+        public String formatearfecha(Date fecha) {
+        String fechaFormateada;
+        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy/MM/dd");
+        
+         fechaFormateada = formatoSalida.format(fecha);
+          return fechaFormateada;
+    }
 
 }
