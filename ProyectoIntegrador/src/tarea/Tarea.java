@@ -1,24 +1,22 @@
-
 package tarea;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class Tarea {
-    
+
     /*
     La clase 'Tarea' representa una tarea genérica, que tiene información básica
     como el nombre de la tarea, descripción, la fecha que fue creada,
     fecha de vencimiento, la prioridad (baja-media-alta) y si aún esta activa o no.
-    */
-    
+     */
     private String nombre;
     private String descripcion;
     private Date fechaCreacion;
     private Date fechaVencimiento;
     private String prioridad;
     private boolean esActiva;
-    
+
     public Tarea() {
     }
 
@@ -51,6 +49,16 @@ public class Tarea {
         return fechaCreacion;
     }
 
+    public String getFechaCreacionFormato() {
+        // Define the desired output format
+        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy/MM/dd");
+
+        // Format the Date object into the desired string format
+        String fechaCreacionConFormato = formatoSalida.format(fechaCreacion);
+
+        return fechaCreacionConFormato;
+    }
+
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
@@ -58,7 +66,16 @@ public class Tarea {
     public Date getFechaVencimiento() {
         return fechaVencimiento;
     }
+    
+        public String getFechaFechaVencimiento(){
+        // Define the desired output format
+        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy/MM/dd");
+          
+        // Format the Date object into the desired string format
+        String fechaCreacionConFormato = formatoSalida.format(fechaCreacion);
 
+        return fechaCreacionConFormato;
+    }
     public void setFechaVencimiento(Date fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
@@ -82,8 +99,5 @@ public class Tarea {
     public void setFechaVencimiento(String nuevaFecha) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-    
 
 }
