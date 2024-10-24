@@ -120,17 +120,17 @@ public class ServicioTarea {
     }
 
     public void mostrarTarea() {
-        
+
         String mensaje;
         String activa;
-        
+
         if (tarea.isEsActiva() == true) {
             activa = "Activa";
         } else {
             activa = "Descativada";
         }
-        
-        if (tarea.getNombre() == null){
+
+        if (tarea.getNombre() == null) {
             System.out.println("No hay datos para mostrar");
             return;
         }
@@ -156,7 +156,7 @@ public class ServicioTarea {
                     System.out.println("-->Prioridad = " + tarea.getPrioridad());
                     System.out.println("-->estado= " + activa);
                     System.out.println(separador);
-                     ejecucion = false;
+                    ejecucion = false;
                     break;
                 case 2:
                     mensaje = "La tarea \"" + tarea.getNombre() + "\""
@@ -167,12 +167,12 @@ public class ServicioTarea {
                             + " con  fecha de vencimiento \"" + tarea.getFechaFechaVencimiento() + "\"";
 
                     System.out.println("Descripcion tarea: \n" + mensaje);
-                     ejecucion = false;
+                    ejecucion = false;
                     break;
                 case 3:
                     ejecucion = false;
                     System.out.println("Saliendo de mostrar tarea");
-                     break;
+                    break;
 
                 default:
                     System.out.println("Opción no válida. Intenta de nuevo.");
@@ -185,12 +185,6 @@ public class ServicioTarea {
     public void eliminarTarea() {
         // Implementar lógica para eliminar una tarea
 
-        /* tarea.setDescripcion(null);
-        tarea.setEsActiva(false);
-        tarea.setFechaCreacion(null);
-        tarea.setNombre(null);
-        tarea.setPrioridad(null);
-        System.out.println("La tarea se elimino correctamente!.");
-         */
+
     }
 }

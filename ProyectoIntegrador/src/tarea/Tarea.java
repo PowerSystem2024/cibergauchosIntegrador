@@ -66,16 +66,17 @@ public class Tarea {
     public Date getFechaVencimiento() {
         return fechaVencimiento;
     }
-    
-        public String getFechaFechaVencimiento(){
+
+    public String getFechaFechaVencimiento() {
         // Define the desired output format
         SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy/MM/dd");
-          
+
         // Format the Date object into the desired string format
         String fechaCreacionConFormato = formatoSalida.format(fechaCreacion);
 
         return fechaCreacionConFormato;
     }
+
     public void setFechaVencimiento(Date fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }

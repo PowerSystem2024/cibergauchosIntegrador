@@ -1,4 +1,3 @@
-
 package gestionTareasApp;
 
 import java.text.ParseException;
@@ -6,15 +5,15 @@ import java.util.Scanner;
 import servicio.ServicioTarea;
 
 public class GestionTareasApp {
-    
+
     public static void main(String[] args) throws ParseException {
         Scanner input = new Scanner(System.in);
         boolean ejecucion = true;
-       
+
         // Creamos un objeto servicio tarea que es el que se encarga de llamar a los métodos
         ServicioTarea servicioTarea = new ServicioTarea();
-        
-        while(ejecucion){
+
+        while (ejecucion) {
             System.out.println("============ MENÚ GESTIÓN DE TAREAS ============");
             System.out.println("1. Crear tarea");
             System.out.println("2. Modificar tarea");
@@ -23,8 +22,8 @@ public class GestionTareasApp {
             System.out.println("5. Salir");
             System.out.print("Elige una opción: ");
             int opcion = input.nextInt();
-            
-            switch(opcion){
+
+            switch (opcion) {
                 case 1:
                     System.out.println("********* CREAR TAREA *********");
                     servicioTarea.crearTarea();
@@ -35,7 +34,7 @@ public class GestionTareasApp {
                     break;
                 case 3:
                     System.out.println("********* MOSTRAR TAREA *********");
-                    
+
                     servicioTarea.mostrarTarea();
                     break;
                 case 4:
@@ -48,10 +47,9 @@ public class GestionTareasApp {
                     break;
                 default:
                     System.out.println("Opción no válida. Intenta de nuevo.");
-                    
+
             }
         }
     }
-    
-   
+
 }
