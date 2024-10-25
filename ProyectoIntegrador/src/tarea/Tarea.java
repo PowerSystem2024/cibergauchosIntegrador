@@ -1,6 +1,7 @@
 
 package tarea;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -80,10 +81,14 @@ public class Tarea {
     }
 
     public void setFechaVencimiento(String nuevaFecha) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Aún no es compatible."); 
     }
 
-
-    
+    public String formatearfecha(Date fecha) {
+        String fechaFormateada;
+        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy/MM/dd");
+        fechaFormateada = formatoSalida.format(fecha);
+        return fechaFormateada;
+    }
 
 }
