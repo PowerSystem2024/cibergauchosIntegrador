@@ -124,7 +124,7 @@ public class ServicioTarea {
   
     
     public void mostrarTarea(){
-                String mensaje;
+        String mensaje;
         String activa;
 
         if (tarea.isEsActiva() == true) {
@@ -165,14 +165,12 @@ public class ServicioTarea {
                     break;
                 case 2:
                     mensaje = "La tarea \"" + tarea.getNombre() + "\""
-                            + " tiene en su descripcion \"" + tarea.getDescripcion() + "\".\n"
-                            //+ "Fue creada en la fecha \"" + tarea.formatearfecha(0) + "\""
-                            + "Fue creada en la fecha \"" + tarea.formatearfecha(tarea.getFechaCreacion()) + "\""
-                            + ", cuenta con prioridad \"" + tarea.getPrioridad() + "\""
-                            + " y se encuentra \"" + activa + "\""
-                            //+ " con  fecha de vencimiento \"" + tarea.formatearfecha(1) + "\"";
-                            + " con  fecha de vencimiento \"" + tarea.formatearfecha(tarea.getFechaVencimiento()) + "\"";
-
+                        + " tiene en su descripcion \"" + tarea.getDescripcion() + "\".\n"
+                        + "Fue creada en la fecha \"" + tarea.formatearfecha(tarea.getFechaCreacion()) + "\""
+                        + ", cuenta con prioridad \"" + tarea.getPrioridad() + "\""
+                        + " y se encuentra \"" + activa + "\""
+                        + " con  fecha de vencimiento \"" 
+                        + tarea.formatearfecha(tarea.getFechaVencimiento()) + "\"";
                     System.out.println("Descripcion tarea: \n" + mensaje);
                     ejecucion = false;
                     break;
@@ -180,10 +178,8 @@ public class ServicioTarea {
                     ejecucion = false;
                     System.out.println("Saliendo de mostrar tarea");
                     break;
-
                 default:
                     System.out.println("Opción no válida. Intenta de nuevo.");
-
             }
         }
     }
