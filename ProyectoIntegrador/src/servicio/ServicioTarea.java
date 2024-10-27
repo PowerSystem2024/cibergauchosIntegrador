@@ -126,6 +126,7 @@ public class ServicioTarea {
     public void mostrarTarea(){
         String mensaje;
         String activa;
+        int diasRestantes = tarea.calcularDiasEntreFechas();
 
         if (tarea.isEsActiva() == true) {
             activa = "Activa";
@@ -158,6 +159,7 @@ public class ServicioTarea {
                     System.out.println("-->Fecha de Vencimiento = " + tarea.formatearfecha(tarea.getFechaVencimiento()));
                     System.out.println("-->Prioridad = " + tarea.getPrioridad());
                     System.out.println("-->Estado= " + activa);
+                    System.out.println("-->Días Restantes= Te quedan " + diasRestantes + " días restantes para completar la tarea.");
                     System.out.println(separador);
                     ejecucion = false;
                     break;
@@ -165,10 +167,11 @@ public class ServicioTarea {
                     mensaje = "La tarea \"" + tarea.getNombre() + "\""
                         + " tiene en su descripcion \"" + tarea.getDescripcion() + "\".\n"
                         + "Fue creada en la fecha \"" + tarea.formatearfecha(tarea.getFechaCreacion()) + "\""
-                        + ", cuenta con prioridad \"" + tarea.getPrioridad() + "\""
+                        + ", cuenta con prioridad \"" + tarea.getPrioridad() + "\".\n"
                         + " y se encuentra \"" + activa + "\""
                         + " con  fecha de vencimiento \"" 
-                        + tarea.formatearfecha(tarea.getFechaVencimiento()) + "\"";
+                        + tarea.formatearfecha(tarea.getFechaVencimiento()) + "\""
+                        + " Y le quedan " + diasRestantes + " días restantes para completar la tarea.";
                     System.out.println("Descripcion tarea: \n" + mensaje);
                     ejecucion = false;
                     break;

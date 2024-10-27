@@ -94,5 +94,11 @@ public class Tarea {
         fechaFormateada = formatoSalida.format(fecha);
         return fechaFormateada;
     }
+    
+    public int calcularDiasEntreFechas() {
+    int miliSegundosPorDia = 86400000;
+    long diferenciaEnMilisegundos = fechaVencimiento.getTime() - fechaCreacion.getTime();
+    return (int) (diferenciaEnMilisegundos / (miliSegundosPorDia));
+    }
 
 }
