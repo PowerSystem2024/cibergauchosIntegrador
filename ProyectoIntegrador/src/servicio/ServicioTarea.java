@@ -26,6 +26,10 @@ public class ServicioTarea {
         String descripcion = input.nextLine(); // La guardamos en una variable
         tarea.setDescripcion(descripcion); // Y la reemplazamos por el método set.
         
+        // 2. Establecer fecha de creación y estado de la tarea
+        tarea.setFechaCreacion(new Date());  // Guarda la fecha actual como la de creación automaticamente
+        tarea.setEsActiva(true);  // Marcar como activa la tarea.        
+
         // Luego la fecha
         System.out.print("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
         String fechaString = input.nextLine(); // Acá pedimos la fecha como String para poder transformarla en tipo Date
@@ -33,7 +37,7 @@ public class ServicioTarea {
         Date fechaVencimiento = dateFormat.parse(fechaString); //Pasamos la fecha string a la variable en tipo date
         tarea.setFechaVencimiento(fechaVencimiento); // Y la reemplazamos con el método set
 
-        // 2. Pedimos la prioridad de la tarea solo con opciones limitadas
+        // 3. Pedimos la prioridad de la tarea solo con opciones limitadas
         System.out.println("Selecciona la prioridad (Baja, Media, Alta): ");
         String prioridad = "";
         boolean opcion = false; 
@@ -51,10 +55,7 @@ public class ServicioTarea {
         }
         tarea.setPrioridad(prioridad); // Mandamos con el método set la prioridad
 
-        // 3. Establecer fecha de creación y estado de la tarea
-        tarea.setFechaCreacion(new Date());  // Guarda la fecha actual como la de creación automaticamente
-        tarea.setEsActiva(true);  // Marcar como activa la tarea.
-
+        
         // Mostramos la tarea como fue ingresada
         System.out.println("Tarea creada!.");   // Acá deberia pegarse el método mostrarTarea()
         // AGREGAR VALIDACIONES PARA QUE NO SE PUEDAN INGRESAR DATOS RANDOM.
