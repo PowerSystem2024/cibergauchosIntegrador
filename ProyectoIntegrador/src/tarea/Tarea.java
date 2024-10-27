@@ -79,6 +79,10 @@ public class Tarea {
     public void setEsActiva(boolean esActiva) {
         this.esActiva = esActiva;
     }
+    
+    public boolean getEsActiva() {
+        return esActiva; 
+    }
 
     public void setFechaVencimiento(String nuevaFecha) {
         throw new UnsupportedOperationException("Aún no es compatible."); 

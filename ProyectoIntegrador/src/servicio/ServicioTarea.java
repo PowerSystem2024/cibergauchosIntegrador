@@ -154,9 +154,7 @@ public class ServicioTarea {
                     System.out.println(separador);
                     System.out.println("-->Nombre = " + tarea.getNombre());
                     System.out.println("-->Descripcion = " + tarea.getDescripcion());
-                    //System.out.println("-->Fecha de Creacion " + tarea.formatearfecha(0));
                     System.out.println("-->Fecha de Creacion = " + tarea.formatearfecha(tarea.getFechaCreacion()));
-                    //System.out.println("-->Fecha de vencimiento " + tarea.formatearfecha(1));
                     System.out.println("-->Fecha de Vencimiento = " + tarea.formatearfecha(tarea.getFechaVencimiento()));
                     System.out.println("-->Prioridad = " + tarea.getPrioridad());
                     System.out.println("-->Estado= " + activa);
@@ -184,7 +182,33 @@ public class ServicioTarea {
         }
     }
     
-    public  void eliminarTarea(){
-        // Implementar lógica para eliminar una tarea
+    public void eliminarTarea() throws ParseException{
+    // Verificar si la tarea ya está inactiva
+    if (!tarea.getEsActiva()) {
+    System.out.println("No hay ninguna tarea activa para eliminar.");
+    return; // No se continúa si no hay tarea activa
+}
+    // Preguntar al usuario si está seguro de eliminar la tarea
+    System.out.println("¿Está seguro de que desea eliminar la tarea? (si/no)");
+    String confirmacion = input.nextLine().toLowerCase();
+
+        // Validar la confirmación del usuario
+        switch (confirmacion) {
+            case "si" -> {
+                // Cambiar el estado de la tarea a inactiva
+                tarea.setEsActiva(false);
+                tarea.setDescripcion(null);
+                tarea.setNombre(null);
+                tarea.setPrioridad(null);
+                tarea.setFechaVencimiento((Date)null);
+                System.out.println("La tarea ha sido eliminada exitosamente.");
+                return;
+            }
+            case "no" -> // Si el usuario cancela la eliminación
+                System.out.println("Eliminación cancelada.");
+            default -> // Manejar opciones no válidas
+                System.out.println("Opción no válida. Eliminación cancelada.");
+                
+        }
     }
 }
