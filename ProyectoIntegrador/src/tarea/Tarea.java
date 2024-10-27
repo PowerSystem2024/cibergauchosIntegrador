@@ -100,5 +100,10 @@ public class Tarea {
     long diferenciaEnMilisegundos = fechaVencimiento.getTime() - fechaCreacion.getTime();
     return (int) (diferenciaEnMilisegundos / (miliSegundosPorDia));
     }
-
+    
+    public Date sumarDiasAFechaCreacion(Date fechaDeCreacion, int dias) {
+    long milisegundosPorDia = 86400000L;
+    long nuevaFechaMilis = fechaDeCreacion.getTime() + (dias * milisegundosPorDia);
+    return new Date(nuevaFechaMilis);
+}
 }

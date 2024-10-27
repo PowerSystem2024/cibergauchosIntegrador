@@ -30,24 +30,65 @@ public class ServicioTarea {
         tarea.setFechaCreacion(new Date());  // Guarda la fecha actual como la de creación automaticamente
         tarea.setEsActiva(true);  // Marcar como activa la tarea.        
 
-        // Luego la fecha
-        System.out.print("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
-        String fechaString = input.nextLine(); // Acá pedimos la fecha como String para poder transformarla en tipo Date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); // Esto significa que se debe ingresar dia, mes y año con las barras (2024/11/10)
-        Date fechaVencimiento = dateFormat.parse(fechaString); //Pasamos la fecha string a la variable en tipo date
-        tarea.setFechaVencimiento(fechaVencimiento); // Y la reemplazamos con el método set
+        //3. Selección de método para ingresar fecha de vencimiento
+        System.out.println("Selecciona el método para definir la fecha de vencimiento:");
+        System.out.println("a) Ingresar una fecha de vencimiento específica");
+        System.out.println("b) Establecer una cantidad de días a partir de la fecha de creación");
+        String opcion = input.nextLine().toLowerCase();
+    
+        switch (opcion) {
+            case "a":
+                {
+                    System.out.print("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
+                    String fechaString = input.nextLine();// Acá pedimos la fecha como String para poder transformarla en tipo Date
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");// Esto significa que se debe ingresar dia, mes y año con las barras (2024/11/10)
+                    Date fechaVencimiento = dateFormat.parse(fechaString);//Pasamos la fecha string a la variable en tipo date
+                    tarea.setFechaVencimiento(fechaVencimiento);// Y la reemplazamos con el método set
+                    break;
+                }
+            case "b":
+                {
+                    System.out.print("Introduce la cantidad de días a partir de hoy para establecer la fecha de vencimiento: ");
+                    int dias = input.nextInt();
+                    input.nextLine(); 
+                    
+                    // Verificación de días no negativos
+                    while (dias < 0) {
+                        System.out.println("Por favor, introduce una cantidad positiva de días.");
+                        System.out.print("Días: ");
+                        dias = input.nextInt();
+                        input.nextLine();
+                    }           
+                    // Establecer la fecha de vencimiento usando el método sumarDiasAFechaCreacion
+                    Date fechaVencimiento = tarea.sumarDiasAFechaCreacion(tarea.getFechaCreacion(), dias);
+                    tarea.setFechaVencimiento(fechaVencimiento);
+                    System.out.println("Fecha de vencimiento establecida a " + tarea.formatearfecha(fechaVencimiento));
+                    break;
+                }
+            default:
+                {
+                    // Opción por defecto en caso de selección inválida
+                    System.out.println("Opción no válida. Por defecto se solicitará ingresar la fecha manualmente.");
+                    System.out.print("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
+                    String fechaString = input.nextLine();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                    Date fechaVencimiento = dateFormat.parse(fechaString);
+                    tarea.setFechaVencimiento(fechaVencimiento);
+                    break;
+                }
+        }
 
         // 3. Pedimos la prioridad de la tarea solo con opciones limitadas
         System.out.println("Selecciona la prioridad (Baja, Media, Alta): ");
         String prioridad = "";
-        boolean opcion = false; 
-        while (!opcion) { // Usamos el ciclo while para que solo se pueda seleccionar una de las 3 opciones
+        boolean opcion2 = false; 
+        while (!opcion2) { // Usamos el ciclo while para que solo se pueda seleccionar una de las 3 opciones
             prioridad = input.nextLine().toLowerCase(); // Convertimos el texto por si ingresarion la opcion en mayusculas
             switch (prioridad) {
                 case "baja":
                 case "media":
                 case "alta":
-                    opcion = true;
+                    opcion2 = true;
                     break;
                 default:
                     System.out.println("Opción inválida. Selecciona: Baja, Media o Alta.");
