@@ -3,6 +3,7 @@ package servicio;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import tarea.Tarea;
@@ -12,99 +13,125 @@ public class ServicioTarea {
     
     private Scanner input = new Scanner(System.in);
     private Tarea tarea = new Tarea();
+    
    
     
     public void crearTarea() throws ParseException{
         
-        // 1. Pedimos los datos al usuario
-        System.out.print("Introduce el nombre de la nueva tarea: ");
-        String nuevoNombre = input.nextLine(); // Guardamos el nombre en una variable
-        tarea.setNombre(nuevoNombre); // Y la reemplazamos mediante el método set.
-        
-        // Ahora pedimos una descripcion sobre la tarea a realizar:
-        System.out.print("Introduce la descripción de la tarea: ");
-        String descripcion = input.nextLine(); // La guardamos en una variable
-        tarea.setDescripcion(descripcion); // Y la reemplazamos por el método set.
-        
-        // 2. Establecer fecha de creación y estado de la tarea
-        tarea.setFechaCreacion(new Date());  // Guarda la fecha actual como la de creación automaticamente
-        tarea.setActiva(true);  // Marcar como activa la tarea.        
+        if(tarea.isActiva()){
+            System.out.println("Ya tienes una tarea pendiente, finalizala para crear otra nuevamente.");
+        }else{
+            // 1. Pedimos los datos al usuario y comprobamos que no coloque espacios vacíos
+                String nuevoNombre;
+            do{
+                System.out.println("Introduce el nombre de la nueva tarea: ");
+                nuevoNombre = input.nextLine().trim(); // Guardamos el nombre en una variable
+                if(nuevoNombre.isEmpty()){
+                    System.out.println("¡ERROR! Los campos no pueden estar vacíos."); 
+                }else{
+                    tarea.setNombre(nuevoNombre); // Y la reemplazamos mediante el método set.
+                }
+            }while(nuevoNombre.isEmpty());
+            
+             // Ahora pedimos una descripcion sobre la tarea a realizar:
+             String descripcion;
+            do{
+                System.out.println("Introduce la descripción de la tarea: ");
+                descripcion = input.nextLine().trim(); // La guardamos en una variable
+                if(descripcion.isEmpty()){
+                    System.out.println("¡ERROR! Los campos no pueden estar vacíos.");
+                }else{
+                    tarea.setDescripcion(descripcion); // la reemplazamos por el método set.  
+                }
+            }while(descripcion.isEmpty());
+            
+               
+            
 
-        //3. Selección de método para ingresar fecha de vencimiento
-        System.out.println("Selecciona el método para definir la fecha de vencimiento:");
-        System.out.println("a) Ingresar una fecha de vencimiento específica");
-        System.out.println("b) Establecer una cantidad de días a partir de la fecha de creación");
-        String opcion = input.nextLine().toLowerCase();
-    
-        switch (opcion) {
-            case "a":
-                {
-                    System.out.print("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
-                    String fechaString = input.nextLine();// Acá pedimos la fecha como String para poder transformarla en tipo Date
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");// Esto significa que se debe ingresar dia, mes y año con las barras (2024/11/10)
-                    Date fechaVencimiento = dateFormat.parse(fechaString);//Pasamos la fecha string a la variable en tipo date
-                    tarea.setFechaVencimiento(fechaVencimiento);// Y la reemplazamos con el método set
-                    break;
-                }
-            case "b":
-                {
-                    System.out.print("Introduce la cantidad de días a partir de hoy para establecer la fecha de vencimiento: ");
-                    int dias = input.nextInt();
-                    input.nextLine(); 
-                    
-                    // Verificación de días no negativos
-                    while (dias < 0) {
-                        System.out.println("Por favor, introduce una cantidad positiva de días.");
-                        System.out.print("Días: ");
-                        dias = input.nextInt();
-                        input.nextLine();
-                    }           
-                    // Establecer la fecha de vencimiento usando el método sumarDiasAFechaCreacion
-                    Date fechaVencimiento = tarea.sumarDiasAFechaCreacion(tarea.getFechaCreacion(), dias);
-                    tarea.setFechaVencimiento(fechaVencimiento);
-                    System.out.println("Fecha de vencimiento establecida a " + tarea.formatearfecha(fechaVencimiento));
-                    break;
-                }
-            default:
-                {
-                    // Opción por defecto en caso de selección inválida
-                    System.out.println("Opción no válida. Por defecto se solicitará ingresar la fecha manualmente.");
-                    System.out.print("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
-                    String fechaString = input.nextLine();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                    Date fechaVencimiento = dateFormat.parse(fechaString);
-                    tarea.setFechaVencimiento(fechaVencimiento);
-                    break;
-                }
-        }
+            // 2. Establecer fecha de creación y estado de la tarea
+            tarea.setFechaCreacion(new Date());  // Guarda la fecha actual como la de creación automaticamente
+            tarea.setActiva(true);  // Marcar como activa la tarea.
 
-        // 3. Pedimos la prioridad de la tarea solo con opciones limitadas
-        System.out.println("Selecciona la prioridad (Baja, Media, Alta): ");
-        String prioridad = "";
-        boolean opcion2 = false; 
-        while (!opcion2) { // Usamos el ciclo while para que solo se pueda seleccionar una de las 3 opciones
-            prioridad = input.nextLine().toLowerCase(); // Convertimos el texto por si ingresarion la opcion en mayusculas
-            switch (prioridad) {
-                case "baja":
-                case "media":
-                case "alta":
-                    opcion2 = true;
-                    break;
+            //3. Selección de método para ingresar fecha de vencimiento
+            System.out.println("Selecciona el método para definir la fecha de vencimiento:");
+            System.out.println("a) Ingresar una fecha de vencimiento específica");
+            System.out.println("b) Establecer una cantidad de días a partir de la fecha de creación");
+            String opcion = input.nextLine().toLowerCase();
+
+
+            switch (opcion) {
+                case "a":
+                    {
+                        tarea.setFechaVencimiento(validarFechaVencimiento());// Llamamos al metodo validarFechaVencimiento para evitar que no se coloquen fechas pasadas o negativas
+                        break;
+                    }
+                case "b":
+                    {
+                        System.out.print("Introduce la cantidad de días a partir de hoy para establecer la fecha de vencimiento: ");
+                        int dias = input.nextInt();
+                        input.nextLine(); 
+
+                        // Verificación de días no negativos
+                        while (dias < 0) {
+                            System.out.println("Por favor, introduce una cantidad positiva de días.");
+                            System.out.print("Días: ");
+                            dias = input.nextInt();
+                            input.nextLine();
+                        }           
+                        // Establecer la fecha de vencimiento usando el método sumarDiasAFechaCreacion
+                        Date fechaVencimiento = tarea.sumarDiasAFechaCreacion(tarea.getFechaCreacion(), dias);
+                        tarea.setFechaVencimiento(fechaVencimiento);
+                        System.out.println("Fecha de vencimiento establecida a " + tarea.formatearfecha(fechaVencimiento));
+                        break;
+                    }
                 default:
-                    System.out.println("Opción inválida. Selecciona: Baja, Media o Alta.");
+                    {
+                        // Opción por defecto en caso de selección inválida
+                        System.out.println("Opción no válida. Por defecto se solicitará ingresar la fecha manualmente.");
+                        System.out.print("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
+                        String fechaString = input.nextLine();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Date fechaVencimiento = dateFormat.parse(fechaString);
+                        tarea.setFechaVencimiento(fechaVencimiento);
+                        break;
+                    }
             }
-        }
-        tarea.setPrioridad(prioridad); // Mandamos con el método set la prioridad
 
-        
-        // Mostramos la tarea como fue ingresada
-        System.out.println("Tarea creada!.");   // Acá deberia pegarse el método mostrarTarea()
-        // AGREGAR VALIDACIONES PARA QUE NO SE PUEDAN INGRESAR DATOS RANDOM.
+            // 3. Pedimos la prioridad de la tarea solo con opciones limitadas
+            System.out.println("Selecciona la prioridad (Baja, Media, Alta): ");
+            String prioridad = "";
+            boolean opcion2 = false; 
+            while (!opcion2) { // Usamos el ciclo while para que solo se pueda seleccionar una de las 3 opciones
+                prioridad = input.nextLine().toLowerCase(); // Convertimos el texto por si ingresarion la opcion en mayusculas
+                switch (prioridad) {
+                    case "baja":
+                    case "media":
+                    case "alta":
+                        opcion2 = true;
+                        break;
+                    default:
+                        System.out.println("Opción inválida. Selecciona: Baja, Media o Alta.");
+                }
+            }
+            tarea.setPrioridad(prioridad); // Mandamos con el método set la prioridad
+
+
+            // Mostramos la tarea como fue ingresada
+            System.out.println("Tarea creada!.");   // Acá deberia pegarse el método mostrarTarea()
+            // AGREGAR VALIDACIONES PARA QUE NO SE PUEDAN INGRESAR DATOS RANDOM.
+        }
     }
+        
+       
     
     // Metodo para modificar la tarea 
     public void modificarTarea() throws ParseException{
-        Scanner scanner = new Scanner(System.in);
+        //comprobamos si existe una tarea, si isActive es true, quiere decir que si existe, entonces se ejecutará modificarTarea, de caso contrario no se ejecutará
+        if(!tarea.isActiva()){
+            System.out.println("¡ERROR! No existe ninguna tarea por el momento.");
+            return;
+        }else{
+            Scanner scanner = new Scanner(System.in);
         boolean continuar = true;
         // Esto le mostrara al usuario que campo desea modificar
         while (continuar){
@@ -121,23 +148,29 @@ public class ServicioTarea {
             switch (opcion){
                 case 1:
                     System.out.println("Ingrese el nuevo nombre: "); // Agregaremos el nuevo nombre
-                    String nuevoNombre = scanner.nextLine();
-                    tarea.setNombre(nuevoNombre);
-                    System.out.println("El nuevo nombre es "+nuevoNombre);// Se mostrara el nuevo nombre
+                    String nuevoNombre = scanner.nextLine().trim();
+                    
+                    if(nuevoNombre.isEmpty()){
+                        System.out.println("¡ERROR! Los campos no pueden estar vacíos.");
+                    }else{
+                        tarea.setNombre(nuevoNombre);
+                        System.out.println("El nuevo nombre es "+nuevoNombre);// Se mostrara el nuevo nombre
+                    }
                     break;
                 case 2:
                     System.out.print("Ingrese la nueva descripción: ");
-                    String nuevaDescripcion = scanner.nextLine();
-                    tarea.setDescripcion(nuevaDescripcion);
-                    System.out.println("La nueva descripcion es "+ nuevaDescripcion);
-                    break;
+                    String nuevaDescripcion = scanner.nextLine().trim();
+                    if(nuevaDescripcion.isEmpty()){
+                        System.out.println("¡ERROR! Los campos no pueden estar vacíos.");
+                        break;
+                    }
+                    else{
+                       tarea.setDescripcion(nuevaDescripcion);
+                        System.out.println("La nueva descripcion es "+ nuevaDescripcion);
+                        break; 
+                    }
                 case 3:
-                    System.out.print("Ingrese la nueva fecha de vencimiento (Formato: YYYY-MM-DD): ");
-                    String nuevaFechaStr = scanner.nextLine();
-                    SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-DD"); //Define el formato
-                    Date nuevaFecha = formato.parse(nuevaFechaStr); //Covierte el string a date
-                    tarea.setFechaVencimiento(nuevaFecha); //Convierte date a string y lo asigna
-                    System.out.println("La nueva fecha de vencimiento es "+nuevaFecha);
+                    tarea.setFechaVencimiento(validarFechaVencimiento());
                     break;
                 case 4:
                     boolean prioridadValida = false;
@@ -162,70 +195,78 @@ public class ServicioTarea {
                     System.out.println("Opcion incorrecta. Por favor, vuelva a intentarlo");
             }
         }
+      }
+        
     }
   
-    
     public void mostrarTarea(){
         String mensaje;
         String activa;
-        int diasRestantes = tarea.calcularDiasEntreFechas();
-
-        if (tarea.isActiva() == true) {
-            activa = "Activa";
-        } else {
-            activa = "Descativada";
-        }
-
-        if (tarea.getNombre() == null) {
-            System.out.println("No hay datos para mostrar");
+        
+        //comprobamos si existe una tarea, si isActive es true, quiere decir que si existe, entonces se ejecutará mostrarTarea, de caso contrario no se ejecutará.
+        if(!tarea.isActiva()){
+            System.out.println("¡ERROR! No existe ninguna tarea por el momento.");
             return;
         }
-        Scanner input = new Scanner(System.in);
-        boolean ejecucion = true;
-        System.out.print("Desea ver el detalle de la tarea en formato parrafo o tabla? \n");
-
-        while (ejecucion) {
-            System.out.println("1. Formato Tabla");
-            System.out.println("2. Formato texto");
-            System.out.println("3. Salir");
-            System.out.print("Elige una opción: ");
-            int opcion = input.nextInt();
-
-            switch (opcion) {
-                case 1:
-                    String separador = "+-------------------+";
-                    System.out.println(separador);
-                    System.out.println("-->Nombre = " + tarea.getNombre());
-                    System.out.println("-->Descripcion = " + tarea.getDescripcion());
-                    System.out.println("-->Fecha de Creacion = " + tarea.formatearfecha(tarea.getFechaCreacion()));
-                    System.out.println("-->Fecha de Vencimiento = " + tarea.formatearfecha(tarea.getFechaVencimiento()));
-                    System.out.println("-->Prioridad = " + tarea.getPrioridad());
-                    System.out.println("-->Estado= " + activa);
-                    System.out.println("-->Días Restantes= Te quedan " + diasRestantes + " días restantes para completar la tarea.");
-                    System.out.println(separador);
-                    ejecucion = false;
-                    break;
-                case 2:
-                    mensaje = "La tarea \"" + tarea.getNombre() + "\""
-                        + " tiene en su descripcion \"" + tarea.getDescripcion() + "\".\n"
-                        + "Fue creada en la fecha \"" + tarea.formatearfecha(tarea.getFechaCreacion()) + "\""
-                        + ", cuenta con prioridad \"" + tarea.getPrioridad() + "\".\n"
-                        + " y se encuentra \"" + activa + "\""
-                        + " con  fecha de vencimiento \"" 
-                        + tarea.formatearfecha(tarea.getFechaVencimiento()) + "\""
-                        + " Y le quedan " + diasRestantes + " días restantes para completar la tarea.";
-                    System.out.println("Descripcion tarea: \n" + mensaje);
-                    ejecucion = false;
-                    break;
-                case 3:
-                    ejecucion = false;
-                    System.out.println("Saliendo de mostrar tarea");
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intenta de nuevo.");
+        else{
+            int diasRestantes = tarea.calcularDiasEntreFechas();
+            if (tarea.isActiva() == true) {
+                activa = "Activa";
+            }   
+            else {
+                activa = "Inactiva";
             }
-        }
-    }
+            if (tarea.getNombre() == null) {
+                System.out.println("No hay datos para mostrar");
+                return;
+            }
+            Scanner input = new Scanner(System.in);
+            boolean ejecucion = true;
+            System.out.print("Desea ver el detalle de la tarea en formato parrafo o tabla? \n");
+
+            while (ejecucion) {
+                System.out.println("1. Formato Tabla");
+                System.out.println("2. Formato texto");
+                System.out.println("3. Salir");
+                System.out.print("Elige una opción: ");
+                int opcion = input.nextInt();
+
+                switch (opcion) {
+                    case 1:
+                        String separador = "+-------------------+";
+                        System.out.println(separador);
+                        System.out.println("-->Nombre = " + tarea.getNombre());
+                        System.out.println("-->Descripcion = " + tarea.getDescripcion());
+                        System.out.println("-->Fecha de Creacion = " + tarea.formatearfecha(tarea.getFechaCreacion()));
+                        System.out.println("-->Fecha de Vencimiento = " + tarea.formatearfecha(tarea.getFechaVencimiento()));
+                        System.out.println("-->Prioridad = " + tarea.getPrioridad());
+                        System.out.println("-->Estado= " + activa);
+                        System.out.println("-->Días Restantes= Te quedan " + diasRestantes + " días restantes para completar la tarea.");
+                        System.out.println(separador);
+                        ejecucion = false;
+                        break;
+                    case 2:
+                        mensaje = "La tarea \"" + tarea.getNombre() + "\""
+                            + " tiene en su descripcion \"" + tarea.getDescripcion() + "\".\n"
+                            + "Fue creada en la fecha \"" + tarea.formatearfecha(tarea.getFechaCreacion()) + "\""
+                            + ", cuenta con prioridad \"" + tarea.getPrioridad() + "\".\n"
+                            + " y se encuentra \"" + activa + "\""
+                            + " con  fecha de vencimiento \"" 
+                            + tarea.formatearfecha(tarea.getFechaVencimiento()) + "\""
+                            + " Y le quedan " + diasRestantes + " días restantes para completar la tarea.";
+                        System.out.println("Descripcion tarea: \n" + mensaje);
+                        ejecucion = false;
+                        break;
+                    case 3:
+                        ejecucion = false;
+                        System.out.println("Saliendo de mostrar tarea");
+                        break;
+                    default:
+                        System.out.println("Opción no válida. Intenta de nuevo.");
+                }
+            }  
+         }
+   }
     
     public void eliminarTarea() throws ParseException{
     // Verificar si la tarea ya está inactiva
@@ -255,5 +296,38 @@ public class ServicioTarea {
                 System.out.println("Opción no válida. Eliminación cancelada.");
                 
         }
+    }
+    
+    public Date validarFechaVencimiento(){
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd"); //establecemos el formato de la fecha
+        Date fechaVencimiento = null; //acá vamos a guardar la fecha que el usuario introduzca
+        boolean fechaValida = false; 
+        
+        //calculamos la fecha minima, que se va a validar
+        Calendar calendario = Calendar.getInstance();
+        calendario.add(calendario.DAY_OF_YEAR, 1);
+        Date fechaActual = calendario.getTime(); //capturamos la fecha actual y la almacenamos en la variable
+        
+        while(!fechaValida){
+            System.out.println("Introduce la fecha de vencimiento (formato Año/Mes/Día): ");
+            String fechaStr = input.nextLine().trim(); //le pedimos al usuario que introduzca la fecha en el formato dado
+            
+            try{
+                fechaVencimiento = formatoFecha.parse(fechaStr); //transformamos la fecha que el usuario ingresó en tipo Date y la almacenamos en fechaVencimiento
+                
+                //comprobamos que la fecha de vencimiento es posterior a la fecha minima(actual)
+                if(fechaVencimiento.after(fechaActual)){
+                    fechaValida = true;
+                }else{
+                    System.out.println("La fecha debe ser por lo menos un día posterior a la fecha actual.");
+                }
+            }
+            //si el usuario no utilzó el formato dado se le volverá a pedir hasta que ingrese el formato pedido
+            catch(ParseException e){
+                System.out.println("Formato de fecha incorrecto, utiliza el formato yyyy/MM/dd");
+            }
+        }
+        
+        return fechaVencimiento; //devolvemos la fecha de vencimiento con posterioridad a la fecha minima(actual).
     }
 }
