@@ -79,6 +79,10 @@ public class Tarea {
     public void setEsActiva(boolean esActiva) {
         this.esActiva = esActiva;
     }
+    
+    public boolean getEsActiva() {
+        return esActiva; 
+    }
 
     public void setFechaVencimiento(String nuevaFecha) {
         throw new UnsupportedOperationException("Aún no es compatible."); 
@@ -90,5 +94,16 @@ public class Tarea {
         fechaFormateada = formatoSalida.format(fecha);
         return fechaFormateada;
     }
-
+    
+    public int calcularDiasEntreFechas() {
+    int miliSegundosPorDia = 86400000;
+    long diferenciaEnMilisegundos = fechaVencimiento.getTime() - fechaCreacion.getTime();
+    return (int) (diferenciaEnMilisegundos / (miliSegundosPorDia));
+    }
+    
+    public Date sumarDiasAFechaCreacion(Date fechaDeCreacion, int dias) {
+    long milisegundosPorDia = 86400000L;
+    long nuevaFechaMilis = fechaDeCreacion.getTime() + (dias * milisegundosPorDia);
+    return new Date(nuevaFechaMilis);
+}
 }
