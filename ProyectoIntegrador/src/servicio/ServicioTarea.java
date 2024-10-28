@@ -28,7 +28,7 @@ public class ServicioTarea {
         
         // 2. Establecer fecha de creación y estado de la tarea
         tarea.setFechaCreacion(new Date());  // Guarda la fecha actual como la de creación automaticamente
-        tarea.setEsActiva(true);  // Marcar como activa la tarea.        
+        tarea.setActiva(true);  // Marcar como activa la tarea.        
 
         //3. Selección de método para ingresar fecha de vencimiento
         System.out.println("Selecciona el método para definir la fecha de vencimiento:");
@@ -170,7 +170,7 @@ public class ServicioTarea {
         String activa;
         int diasRestantes = tarea.calcularDiasEntreFechas();
 
-        if (tarea.isEsActiva() == true) {
+        if (tarea.isActiva() == true) {
             activa = "Activa";
         } else {
             activa = "Descativada";
@@ -229,7 +229,7 @@ public class ServicioTarea {
     
     public void eliminarTarea() throws ParseException{
     // Verificar si la tarea ya está inactiva
-    if (!tarea.getEsActiva()) {
+    if (!tarea.isActiva()) {
     System.out.println("No hay ninguna tarea activa para eliminar.");
     return; // No se continúa si no hay tarea activa
 }
@@ -241,7 +241,7 @@ public class ServicioTarea {
         switch (confirmacion) {
             case "si" -> {
                 // Cambiar el estado de la tarea a inactiva
-                tarea.setEsActiva(false);
+                tarea.setActiva(false);
                 tarea.setDescripcion(null);
                 tarea.setNombre(null);
                 tarea.setPrioridad(null);

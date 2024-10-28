@@ -18,18 +18,18 @@ public class Tarea {
     private Date fechaCreacion;
     private Date fechaVencimiento;
     private String prioridad;
-    private boolean esActiva;
+    private boolean activa;
     
     public Tarea() {
     }
 
-    public Tarea(String nombre, String descripcion, Date fechaCreacion, Date fechaVencimiento, String prioridad, boolean esActiva) {
+    public Tarea(String nombre, String descripcion, Date fechaCreacion, Date fechaVencimiento, String prioridad, boolean activa) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaCreacion = fechaCreacion;
         this.fechaVencimiento = fechaVencimiento;
         this.prioridad = prioridad;
-        this.esActiva = esActiva;
+        this.activa = activa;
     }
 
     public String getNombre() {
@@ -72,17 +72,15 @@ public class Tarea {
         this.prioridad = prioridad;
     }
 
-    public boolean isEsActiva() {
-        return esActiva;
+    public boolean isActiva() {
+        return activa;
     }
 
-    public void setEsActiva(boolean esActiva) {
-        this.esActiva = esActiva;
+    public void setActiva(boolean activa) {
+        this.activa = activa;
     }
+
     
-    public boolean getEsActiva() {
-        return esActiva; 
-    }
 
     public void setFechaVencimiento(String nuevaFecha) {
         throw new UnsupportedOperationException("Aún no es compatible."); 
