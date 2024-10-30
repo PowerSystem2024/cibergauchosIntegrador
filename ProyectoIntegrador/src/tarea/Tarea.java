@@ -1,12 +1,9 @@
 
 package tarea;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.time.LocalDate;
 
 public class Tarea {
-    
     /*
     La clase 'Tarea' representa una tarea genérica, que tiene información básica
     como el nombre de la tarea, descripción, la fecha que fue creada,
@@ -15,15 +12,15 @@ public class Tarea {
     
     private String nombre;
     private String descripcion;
-    private Date fechaCreacion;
-    private Date fechaVencimiento;
+    private LocalDate fechaCreacion;
+    private LocalDate fechaVencimiento;
     private String prioridad;
     private boolean activa;
     
     public Tarea() {
     }
 
-    public Tarea(String nombre, String descripcion, Date fechaCreacion, Date fechaVencimiento, String prioridad, boolean activa) {
+    public Tarea(String nombre, String descripcion, LocalDate fechaCreacion, LocalDate fechaVencimiento, String prioridad, boolean activa) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaCreacion = fechaCreacion;
@@ -48,19 +45,19 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Date getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
 
@@ -79,30 +76,4 @@ public class Tarea {
     public void setActiva(boolean activa) {
         this.activa = activa;
     }
-
-    
-
-    public void setFechaVencimiento(String nuevaFecha) {
-        throw new UnsupportedOperationException("Aún no es compatible."); 
-    }
-
-    public String formatearfecha(Date fecha) {
-        String fechaFormateada;
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy/MM/dd");
-        fechaFormateada = formatoSalida.format(fecha);
-        return fechaFormateada;
-    }
-    
-    public int calcularDiasEntreFechas() {
-    int miliSegundosPorDia = 86400000;
-    long diferenciaEnMilisegundos = fechaVencimiento.getTime() - fechaCreacion.getTime();
-    return (int) (diferenciaEnMilisegundos / (miliSegundosPorDia));
-    }
-    
-    public Date sumarDiasAFechaCreacion(Date fechaDeCreacion, int dias) {
-    long milisegundosPorDia = 86400000L;
-    long nuevaFechaMilis = fechaDeCreacion.getTime() + (dias * milisegundosPorDia);
-    return new Date(nuevaFechaMilis);
-}
-    
 }

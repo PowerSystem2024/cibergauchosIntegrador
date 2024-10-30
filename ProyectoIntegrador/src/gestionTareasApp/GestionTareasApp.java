@@ -20,11 +20,10 @@ public class GestionTareasApp {
             System.out.println("1. Crear tarea");
             System.out.println("2. Modificar tarea");
             System.out.println("3. Mostrar tarea");
-            System.out.println("4. Eliminar tarea");
+            System.out.println("4. Finalizar tarea");
             System.out.println("5. Salir");
             System.out.print("Elige una opción: ");
-            int opcion = input.nextInt();
-            
+            int opcion = Integer.parseInt(input.nextLine().trim());
             switch(opcion){
                 case 1:
                     System.out.println("********* CREAR TAREA *********");
@@ -40,8 +39,8 @@ public class GestionTareasApp {
                     servicioTarea.mostrarTarea();
                     break;
                 case 4:
-                    System.out.println("********* ELIMINAR TAREA *********");
-                    servicioTarea.eliminarTarea();
+                    System.out.println("********* FINALIZAR TAREA *********");
+                    servicioTarea.finalizarTarea();
                     break;
                 case 5:
                     ejecucion = false;
