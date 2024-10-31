@@ -7,9 +7,9 @@ import utilidades.UtilidadTarea;
 
 public class ServicioTarea {
 
-    private Scanner input = new Scanner(System.in);
-    private Tarea tarea = new Tarea();
-    private UtilidadTarea utilidadTarea = new UtilidadTarea();
+    private final Scanner input = new Scanner(System.in);
+    private final Tarea tarea = new Tarea();
+    private final UtilidadTarea utilidadTarea = new UtilidadTarea();
 
     // ----------------- MÉTODO CREA UNA TAREA ESPECÍFICA --------------------------
     public void crearTarea() {
@@ -28,12 +28,10 @@ public class ServicioTarea {
             // Nos aseguramos que no se ingresen campos vacíos
             if (nombre.isEmpty() || descripcion.isEmpty()) {
                 System.out.println("¡ERROR! Los campos no pueden estar vacíos.");
-            } else {
-                tarea.setNombre(nombre);
-                tarea.setDescripcion(descripcion);
             }
         } while (nombre.isEmpty() || descripcion.isEmpty());
-
+        tarea.setNombre(nombre);
+        tarea.setDescripcion(descripcion);
         // Establecer fecha de creación y estado de la tarea
         tarea.setFechaCreacion(LocalDate.now());  // Asignamos la fecha actual como la de creacion
         tarea.setActiva(true);  // La establecemos como true, ya que estamos creando la tarea
@@ -169,21 +167,20 @@ public class ServicioTarea {
         if (!tarea.isActiva()) {
             System.out.println("¡ERROR! No existe ninguna tarea por el momento.");
             return;
-        } else {
-            String separador = "+-------------------------------------------+";
-            System.out.println(separador);
-            System.out.println("--> Nombre: " + tarea.getNombre());
-            System.out.println("--> Descripcion: " + tarea.getDescripcion());
-            System.out.println("--> Fecha de Creacion: " + tarea.getFechaCreacion());
-            System.out.println("--> Fecha de Vencimiento: " + tarea.getFechaVencimiento());
-            System.out.println("--> Prioridad: " + tarea.getPrioridad());
-            System.out.println("--> Estado: Activa");
-
-            Long diasRestantes = utilidadTarea.calcularDiasHastaVencimiento(tarea.getFechaVencimiento());
-            System.out.println("--> Días Restantes: Te quedan " + diasRestantes + " días restantes para completar la tarea.");
-
-            System.out.println(separador);
         }
+        String separador = "+-------------------------------------------+";
+        System.out.println(separador);
+        System.out.println("--> Nombre: " + tarea.getNombre());
+        System.out.println("--> Descripcion: " + tarea.getDescripcion());
+        System.out.println("--> Fecha de Creacion: " + tarea.getFechaCreacion());
+        System.out.println("--> Fecha de Vencimiento: " + tarea.getFechaVencimiento());
+        System.out.println("--> Prioridad: " + tarea.getPrioridad());
+        System.out.println("--> Estado: Activa");
+
+        Long diasRestantes = utilidadTarea.calcularDiasHastaVencimiento(tarea.getFechaVencimiento());
+        System.out.println("--> Días Restantes: Te quedan " + diasRestantes + " días restantes para completar la tarea.");
+
+        System.out.println(separador);
     }
 
     // ----------------- MÉTODO QUE DA POR FINALIZADA UNA TAREA --------------------------
