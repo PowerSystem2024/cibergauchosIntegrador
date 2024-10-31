@@ -1,14 +1,13 @@
 
 package gestionTareasApp;
 
-import java.text.ParseException;
 import java.util.Scanner;
 import servicio.ServicioTarea;
 
 
 public class GestionTareasApp {
     
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         boolean ejecucion = true;
        
