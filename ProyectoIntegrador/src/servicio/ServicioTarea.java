@@ -102,7 +102,7 @@ public class ServicioTarea {
             System.out.println("2. Descripcion");
             System.out.println("3. Fecha de vencimiento");
             System.out.println("4. Prioridad");
-            System.out.println("5. Salir");
+            System.out.println("5. Volver al menú principal");
 
             int opcion = Integer.parseInt(input.nextLine().trim());
             switch (opcion) {
@@ -136,20 +136,20 @@ public class ServicioTarea {
                 case 4:
                     // Solicitamos la prioridad al usuario
                     String prioridad = "";
-                    boolean aux = false;
+                    boolean aux = true;
                     while (aux) {
                         System.out.println("Selecciona la prioridad (baja, media, alta): ");
                         prioridad = input.nextLine().trim().toLowerCase();
 
                         switch (prioridad) {
                             case "baja", "media", "alta":
-                                aux = true;
+                                aux = false;
                                 break;
                             default:
                                 System.out.println("Opción inválida. Selecciona: Baja, Media o Alta.");
                         }
                     }
-                    tarea.setPrioridad(prioridad); // Seteamos la nueva prioridad al objeto tarea
+                    tarea.setPrioridad(prioridad);
                     System.out.println("Prioridad cambiada exitosamente. La nueva prioridad es: " + tarea.getPrioridad());
                     break;
                 case 5:
